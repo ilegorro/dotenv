@@ -36,6 +36,9 @@ set showmatch
 " enable true colors support "
 set termguicolors
 
+" for WSL support "
+set term=xterm-256color
+
 " Vim colorscheme "
 colorscheme desert
 
