@@ -23,7 +23,8 @@ vim -u NONE -c "helptags vim-airline-themes/doc" -c q
 """""""""""""""""""""""""""""""""""""""""""""
 https://github.com/neoclide/coc.nvim
 git clone --branch release --depth=1 https://github.com/neoclide/coc.nvim.git ~/.vim/pack/coc/start/coc.nvim
-vim -u NONE -c "helptags coc.nvim/doc" -c q
+cd ~/.vim/pack/coc/start
+vim -c "helptags coc.nvim/doc/ | q"
 
 :CocInstall coc-phpls coc-json coc-css coc-html coc-pairs
 :CocInstall @yaegassy/coc-volar coc-prettier
