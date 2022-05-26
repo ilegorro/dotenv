@@ -73,9 +73,6 @@ set cursorline
 highlight Cursorline cterm=bold ctermbg=240 guibg=Grey35 
 " term=underline cterm=underline ""
 
-" highlight coc selection 
-" highlight Conseal ctermfg=254 guifg=#e4e4e4 ctermbg=241 guifg=#626262
-" highlight PmenuSel ctermfg=254 guifg=#e4e4e4 ctermbg=241 guifg=#626262
 
 """"""""""""""""""""""""
 "        netrw         "
@@ -89,6 +86,7 @@ let g:netrw_banner=0
 " 2: Wide, which is files in columns "
 " 3: Tree style "
 let g:netrw_liststyle=3
+
 
 """""""""""""""""""""""
 "     vim-airline     "
@@ -134,6 +132,15 @@ inoremap <silent><expr> <c-@> coc#refresh()
 
 " Format by Prettier
 command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
+
+" highlight coc selection 
+" highlight Conseal ctermfg=254 guifg=#e4e4e4 ctermbg=241 guifg=#626262
+" highlight PmenuSel ctermfg=254 guifg=#e4e4e4 ctermbg=241 guifg=#626262
+
+" highlight Coc errors
+highlight CocErrorSign ctermfg=225 guifg=#ffd7ff
+highlight CocErrorFloat ctermfg=225 guifg=#ffd7ff
+
 
 
 """"""""""""""""""""""""
