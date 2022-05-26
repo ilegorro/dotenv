@@ -1,0 +1,50 @@
+"""""""""""""""""""""""""""""""""""""""""""""
+"       fugitive.vim: A Git wrapper         "
+"""""""""""""""""""""""""""""""""""""""""""""
+https://github.com/tpope/vim-fugitive
+git clone https://tpope.io/vim/fugitive.git ~/.vim/pack/tpope/start/fugitive
+vim -u NONE -c "helptags fugitive/doc" -c q
+
+
+"""""""""""""""""""""""""""""""""""""""""""""
+"  vim-airline: lean & mean status/tabline  "
+"""""""""""""""""""""""""""""""""""""""""""""
+https://github.com/vim-airline/vim-airline
+git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline
+vim -u NONE -c "helptags vim-airline/doc" -c q
+
+Themes for vim-airline
+git clone https://github.com/vim-airline/vim-airline-themes ~/.vim/pack/dist/start/vim-airline-themes
+vim -u NONE -c "helptags vim-airline-themes/doc" -c q
+
+
+"""""""""""""""""""""""""""""""""""""""""""""
+"       coc.nvim: extension host            "
+"""""""""""""""""""""""""""""""""""""""""""""
+https://github.com/neoclide/coc.nvim
+git clone --branch release --depth=1 https://github.com/neoclide/coc.nvim.git ~/.vim/pack/coc/start/coc.nvim
+vim -u NONE -c "helptags coc.nvim/doc" -c q
+
+:CocInstall coc-phpls coc-json coc-css coc-html coc-pairs
+:CocInstall @yaegassy/coc-volar coc-prettier
+
+Go to definition
+gd, C-o can go back.
+
+Show list of extensions
+:CocList extension
+
+
+""""""""""""""""""""""""""""""""""""""""""""
+"           Plugins to explore             "
+""""""""""""""""""""""""""""""""""""""""""""
+https://github.com/tpope/vim-commentary
+https://github.com/sheerun/vim-polyglot
+
+
+""""""""""""""""""""""""""""""""""""""""""""
+"           Other resources                "
+""""""""""""""""""""""""""""""""""""""""""""
+How to turn Vim into a powerful and beautiful IDE | Jess Archer, Vimconf 2021
+https://www.youtube.com/watch?v=434tljD-5C8
+
