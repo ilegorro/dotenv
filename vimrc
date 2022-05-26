@@ -9,10 +9,6 @@ syntax on
 " enable line numbers "
 set number
 
-" highlight current line "
-set cursorline
-:highlight Cursorline cterm=bold ctermbg=black
-
 " enable highlight search pattern "
 set hlsearch
 
@@ -66,6 +62,17 @@ set sidescrolloff=8
 " Always show left column where error symbols are shown. To avoid shifting "
 set signcolumn=yes
 
+" set floating menu color "
+:highlight Pmenu guibg=#870000 ctermbg=88 guifg=#ffd7ff ctermfg=225
+
+" highlight current line "
+set cursorline
+:highlight Cursorline cterm=bold ctermbg=240 guibg=Grey35 " term=underline cterm=underline
+
+" highlight coc selection 
+" :highlight Conseal ctermfg=254 guifg=#e4e4e4 ctermbg=241 guifg=#626262
+" :highlight PmenuSel ctermfg=254 guifg=#e4e4e4 ctermbg=241 guifg=#626262
+
 """"""""""""""""""""""""
 "        netrw         "
 """"""""""""""""""""""""
@@ -90,9 +97,12 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline_theme = 'simple'
 let g:bufferline_echo = 0
 
+" set tabs color "
+:highlight airline_tab ctermfg=40 ctermbg=234 guifg=#00d700 guibg=#1c1c1c
+
 
 """""""""""""""""""""""
-"     KEY MAPPING     "
+"     coc.nvim        "
 """""""""""""""""""""""
 " Jump to definition by pressing F12 "
 nnoremap <F12> :call CocActionAsync('jumpDefinition', 'tabe')<CR>
