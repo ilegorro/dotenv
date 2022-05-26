@@ -63,15 +63,16 @@ set sidescrolloff=8
 set signcolumn=yes
 
 " set floating menu color "
-:highlight Pmenu guibg=#870000 ctermbg=88 guifg=#ffd7ff ctermfg=225
+highlight Pmenu guibg=#870000 ctermbg=88 guifg=#ffd7ff ctermfg=225
 
 " highlight current line "
 set cursorline
-:highlight Cursorline cterm=bold ctermbg=240 guibg=Grey35 " term=underline cterm=underline
+highlight Cursorline cterm=bold ctermbg=240 guibg=Grey35 
+" term=underline cterm=underline ""
 
 " highlight coc selection 
-" :highlight Conseal ctermfg=254 guifg=#e4e4e4 ctermbg=241 guifg=#626262
-" :highlight PmenuSel ctermfg=254 guifg=#e4e4e4 ctermbg=241 guifg=#626262
+" highlight Conseal ctermfg=254 guifg=#e4e4e4 ctermbg=241 guifg=#626262
+" highlight PmenuSel ctermfg=254 guifg=#e4e4e4 ctermbg=241 guifg=#626262
 
 """"""""""""""""""""""""
 "        netrw         "
@@ -97,8 +98,13 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline_theme = 'simple'
 let g:bufferline_echo = 0
 
-" set tabs color "
-:highlight airline_tab ctermfg=40 ctermbg=234 guifg=#00d700 guibg=#1c1c1c
+function! s:update_highlights()
+  " Example: hi CursorLine ctermbg=none guibg=NONE
+  " set tabs color "
+  highlight airline_tab ctermfg=40 ctermbg=234 guifg=#00d700 guibg=#1c1c1c
+endfunction
+autocmd User AirlineAfterTheme call s:update_highlights()
+
 
 
 """""""""""""""""""""""
@@ -146,4 +152,3 @@ command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 
 " Delete range selection "
 "            :<line_number>,<line_number>d "(e.g. :2,10d deletes lines 2-10)"
-
