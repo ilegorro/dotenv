@@ -29,7 +29,9 @@ git clone --branch release --depth=1 https://github.com/neoclide/coc.nvim.git ~/
 cd ~/.vim/pack/coc/start
 vim -c "helptags coc.nvim/doc/ | q"
 
-:CocInstall coc-phpls coc-json coc-css coc-html coc-pairs
+:CocInstall coc-json coc-css coc-html coc-pairs
+" instead of coc-phpls "
+:CocInstall @yaegassy/coc-intelephense 
 :CocInstall @yaegassy/coc-volar coc-prettier
 
 Go to definition
