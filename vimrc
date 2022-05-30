@@ -118,6 +118,11 @@ autocmd User AirlineAfterTheme call s:update_highlights()
 " Jump to definition by pressing F12 "
 nnoremap <F12> :call CocActionAsync('jumpDefinition', 'tabe')<CR>
 
+" Handle ga to open code actions menu "
+nmap <silent> ga :call CocActionAsync('codeAction', 'line')<CR>
+xmap <silent> ga :call CocActionAsync('codeAction', 'selected')<CR>
+nmap <silent> gA :call CocActionAsync('codeAction')<CR>
+
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
