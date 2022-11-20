@@ -139,6 +139,9 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 " Use <c-space> to trigger completion. "
 inoremap <silent><expr> <c-@> coc#refresh()
 
+" Use <cr> to confirm completion. "                                                                                         
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+  
 " Format by Prettier
 command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 
