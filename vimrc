@@ -23,10 +23,10 @@ set smartcase
 " expandtab:	when on use space instead of tab
 " textwidth:	text wrap width
 " autoindent:	autoindent in new line
-set tabstop	=4
-set softtabstop	=4
-set shiftwidth	=4
-set textwidth	=79
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set textwidth=119
 set expandtab
 set autoindent
 
@@ -50,7 +50,7 @@ colorscheme desert
 " set spell "
 
 set hidden
-set undofile
+" set undofile
 set title
 set nowrap
 set list
@@ -79,6 +79,9 @@ highlight Cursorline cterm=bold ctermbg=240 guibg=Grey35
 
 " debug options "
 let g:vdebug_options = {}
+let g:vdebug_options['debug_file_level'] = 2
+let g:vdebug_options['debug_file'] = '~/vdebug.log'
+let g:vdebug_options['server'] = 'server-name'
 let g:vdebug_options['port'] = 9003
 let g:vdebug_options['path_maps'] = {'/var': getcwd()}
 let g:vdebug_options['break_on_open'] = 0
