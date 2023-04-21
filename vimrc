@@ -9,6 +9,10 @@ syntax on
 " enable line numbers "
 set number
 
+" disable beep
+set visualbell
+set t_vb=
+
 " enable highlight search pattern "
 set hlsearch
 
