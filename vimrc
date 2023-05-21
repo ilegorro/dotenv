@@ -30,7 +30,7 @@ set smartcase
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set textwidth=119
+set textwidth=119 " comment this line to prevent linebreak "
 set expandtab
 set autoindent
 
@@ -92,6 +92,19 @@ let g:vdebug_options['break_on_open'] = 0
 let g:vdebug_options['watch_window_style'] = 'compact'
 let g:vdebug_features = {}
 let g:vdebug_features['max_children'] = 128
+" remap keys in case of a conflict with other plugins "
+let g:vdebug_keymap = {}
+let g:vdebug_keymap['run'] = '<F5>'
+let g:vdebug_keymap['run_to_cursor'] = '<F9>'
+let g:vdebug_keymap['step_over'] = '<F2>'
+let g:vdebug_keymap['step_into'] = '<F3>'
+let g:vdebug_keymap['step_out'] = '<F4>'
+let g:vdebug_keymap['close'] = '<F6>'
+let g:vdebug_keymap['detach'] = '<F7>'
+let g:vdebug_keymap['set_breakpoint'] = '<F10>'
+let g:vdebug_keymap['get_context'] = '<F11>'
+let g:vdebug_keymap['eval_under_cursor'] = '<Leader><F12>'
+let g:vdebug_keymap['eval_visual'] = '<Leader>e'
 
 """"""""""""""""""""""""
 "        netrw         "
