@@ -163,6 +163,7 @@ inoremap <silent><expr> <TAB>
       \ CheckBackspace() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><CR> pumvisible() ? "\<C-Y>" : "\<CR>"
 
 " Use <c-space> to trigger completion. "
 inoremap <silent><expr> <c-@> coc#refresh()
