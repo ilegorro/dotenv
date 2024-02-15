@@ -26,27 +26,15 @@ vim -u NONE -c "helptags vim-airline-themes/doc" -c q
 """""""""""""""""""""""""""""""""""""""""""""
 https://github.com/neoclide/coc.nvim
 git clone --branch release --depth=1 https://github.com/neoclide/coc.nvim.git ~/.vim/pack/coc/start/coc.nvim
+" nvim plugin folder is ~/.local/share/nvim/site/pack/coc/start
 cd ~/.vim/pack/coc/start
 vim -c "helptags coc.nvim/doc/ | q"
 
-:CocInstall coc-json coc-css coc-html coc-pairs
-" instead of coc-phpls "
-:CocInstall @yaegassy/coc-intelephense coc-php-cs-fixer
-
+:CocInstall coc-json coc-css coc-html coc-pairs @yaegassy/coc-intelephense coc-php-cs-fixer
 :CocInstall @yaegassy/coc-volar coc-prettier
-
-Go to definition
-gd, C-o can go back.
 
 Show list of extensions
 :CocList extensions
-
-
-""""""""""""""""""""""""""""""""""""""""""""
-"           Plugins to explore             "
-""""""""""""""""""""""""""""""""""""""""""""
-https://github.com/tpope/vim-commentary
-https://github.com/sheerun/vim-polyglot
 
 
 """"""""""""""""""""""""""""""""""""""""""""
