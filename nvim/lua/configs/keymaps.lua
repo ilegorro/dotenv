@@ -2,18 +2,21 @@ local opts = { silent = true }
 local keymap = vim.api.nvim_set_keymap
 
 keymap("n", "D", ":lua vim.lsp.buf.hover()<CR>", opts)
-keymap('i', 'jj', '<Esc>l', opts)
-keymap('n', '<M-a>', 'ggVG', opts)
-keymap('n', '<ESC>', ':nohlsearch<CR>', opts)
-keymap('n', '<C-J>', '<C-W><C-J>', opts)
-keymap('n', '<C-K>', '<C-W><C-K>', opts)
-keymap('n', '<C-L>', '<C-W><C-L>', opts)
-keymap('n', '<C-H>', '<C-W><C-H>', opts)
-keymap('t', '<Esc>', '<C-\\><C-n>', opts)
-keymap('t', 'jj', '<C-\\><C-n>', opts)
-keymap('x', '<cr>',
-    '*y:silent! let searchTerm = "\\V".substitute(escape(@*, "\\/"), "\\n", "\\\n", "g") <bar> let @/ = searchTerm <bar> echo "/".@/ <bar> call histadd("search", searchTerm) <bar> set hls<cr>',
-    opts)
+keymap("i", "jj", "<Esc>l", opts)
+keymap("n", "<M-a>", "ggVG", opts)
+keymap("n", "<ESC>", ":nohlsearch<CR>", opts)
+keymap("n", "<C-J>", "<C-W><C-J>", opts)
+keymap("n", "<C-K>", "<C-W><C-K>", opts)
+keymap("n", "<C-L>", "<C-W><C-L>", opts)
+keymap("n", "<C-H>", "<C-W><C-H>", opts)
+keymap("t", "<Esc>", "<C-\\><C-n>", opts)
+keymap("t", "jj", "<C-\\><C-n>", opts)
+keymap(
+	"x",
+	"<cr>",
+	'*y:silent! let searchTerm = "\\V".substitute(escape(@*, "\\/"), "\\n", "\\\n", "g") <bar> let @/ = searchTerm <bar> echo "/".@/ <bar> call histadd("search", searchTerm) <bar> set hls<cr>',
+	opts
+)
 
 -- Write all keymaps to a file
 -- :redir! > vim_keys.txt
@@ -30,7 +33,8 @@ keymap('x', '<cr>',
 -- gb - region blockwise comment
 -- gbc - current line blockwise comment
 -- gbb - insert blockwise comment
--- gnn - select inner word
+-- gnn - select inner block
+-- gD - select inner word
 -- C-u - scroll up
 -- C-d - scroll down
 -- C-y - scroll screen up

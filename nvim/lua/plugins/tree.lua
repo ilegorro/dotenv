@@ -2,9 +2,9 @@ local HEIGHT_RATIO = 0.8
 local WIDTH_RATIO = 0.5
 
 return {
-	"kyazdani42/nvim-tree.lua",
+	"nvim-tree/nvim-tree.lua",
 	dependencies = {
-		"kyazdani42/nvim-web-devicons",
+		"nvim-tree/nvim-web-devicons",
 	},
 	config = function()
 		require("nvim-tree").setup({
