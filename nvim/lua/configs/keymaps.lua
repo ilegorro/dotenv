@@ -59,6 +59,7 @@ keymap(
 
 -- Telescope
 -- <leader>ff - frecency
+-- <leader>fn - notify
 -- <leader>fg - egrepify
 -- <leader>fb - buffers
 -- <leader>fh - help_tags
