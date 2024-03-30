@@ -5,10 +5,10 @@ keymap("n", "D", ":lua vim.lsp.buf.hover()<CR>", opts)
 keymap("i", "jj", "<Esc>l", opts)
 keymap("n", "<M-a>", "ggVG", opts)
 keymap("n", "<ESC>", ":nohlsearch<CR>", opts)
-keymap("n", "<C-J>", "<C-W><C-J>", opts)
-keymap("n", "<C-K>", "<C-W><C-K>", opts)
-keymap("n", "<C-L>", "<C-W><C-L>", opts)
-keymap("n", "<C-H>", "<C-W><C-H>", opts)
+keymap("n", "<C-j>", "<C-W><C-J>", opts)
+keymap("n", "<C-k>", "<C-W><C-K>", opts)
+keymap("n", "<C-l>", "<C-W><C-L>", opts)
+keymap("n", "<C-h>", "<C-W><C-H>", opts)
 keymap("t", "<Esc>", "<C-\\><C-n>", opts)
 keymap("t", "jj", "<C-\\><C-n>", opts)
 keymap(
@@ -25,6 +25,9 @@ keymap(
 
 -- Check keymap conflicts
 -- :checkhealth which-key
+
+-- Check current mapping
+-- verbose map <C-t>
 
 -- plugin hotkeys
 -- fp - telescope yank history

@@ -5,9 +5,6 @@ return {
 		"saadparwaiz1/cmp_luasnip",
 		"rafamadriz/friendly-snippets",
 	},
-	build = {
-		"!go install github.com/koron/iferr",
-	},
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		local ls = require("luasnip")
