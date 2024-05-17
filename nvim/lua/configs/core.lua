@@ -30,7 +30,6 @@ opt.splitbelow = true -- New horizontal splits, like `:help`, are on the bottom 
 opt.splitright = true -- New vert splits are on the right
 opt.swapfile = false -- Do not leave any backup files
 opt.tabstop = 4 -- Tab size of 4 spaces
-opt.termguicolors = true -- Required for some themes
 opt.textwidth = 0 -- Don't break lines automatically
 opt.ttimeoutlen = 100 -- Wait for a key code sequence to complete
 opt.title = true -- Set window title
