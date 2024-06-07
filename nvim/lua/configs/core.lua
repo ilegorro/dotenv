@@ -35,6 +35,7 @@ opt.ttimeoutlen = 100 -- Wait for a key code sequence to complete
 opt.title = true -- Set window title
 opt.updatetime = 300 -- Delay before write to disk
 opt.wrap = false -- Prevent wrap lines visually
+opt.cmdheight = 0
 
 vim.g.mapleader = " "
 

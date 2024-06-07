@@ -14,8 +14,11 @@ return {
 		},
 		config = function()
 			require("go").setup({
+				verbose = true,
 				icons = {
 					code_action_icon = "💡",
+					breakpoint = "🔺",
+					currentpos = "🔸",
 				},
 				lsp_inlay_hints = {
 					enable = false,

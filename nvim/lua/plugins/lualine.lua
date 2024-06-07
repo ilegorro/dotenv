@@ -21,7 +21,7 @@ return {
 				lualine_a = {
 					{
 						"filename",
-						path = 1,
+						path = 2,
 					},
 				},
 				lualine_b = {
@@ -51,7 +51,7 @@ return {
 					{
 						"tabs",
 						tab_max_length = 80,
-						max_length = vim.o.columns / 1.5,
+						max_length = vim.o.columns / 1.2,
 						mode = 2,
 						path = 0,
 						use_mode_colors = false,
