@@ -121,8 +121,8 @@ return {
 			opts,
 		},
 		{ "<leader>fy", ":Telescope yank_history<CR>", opts },
-		{ "gr", ":Telescope lsp_references<CR>", opts },
+		{ "gr", '<cmd>lua require"telescope.builtin".lsp_references({jump_type="tab"})<CR>', opts },
 		{ "gd", '<cmd>lua require"telescope.builtin".lsp_definitions({jump_type="tab"})<CR>', opts },
-		{ "gi", ":Telescope lsp_implementations<CR>", opts },
+		{ "gi", '<cmd>lua require"telescope.builtin".lsp_implementations({jump_type="tab"})<CR>', opts },
 	},
 }
