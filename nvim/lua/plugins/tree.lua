@@ -13,6 +13,9 @@ return {
 			diagnostics = {
 				enable = true,
 			},
+			filters = {
+				git_ignored = false,
+			},
 			view = {
 				float = {
 					enable = true,
