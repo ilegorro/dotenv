@@ -6,7 +6,7 @@ local servers = {
 	"yamlls",
 	"phpactor",
 	"pyright",
-	"golangci_lint_ls",
+	-- "golangci_lint_ls",
 }
 
 local signs = {
@@ -167,7 +167,6 @@ return {
 			end
 
 			local null_ls = require("null-ls")
-
 			null_ls.setup({
 				on_attach = on_attach(),
 				filetypes = "go",
@@ -175,6 +174,7 @@ return {
 					null_ls.builtins.completion.spell,
 				},
 			})
+
 			local lspconfig = require("lspconfig")
 			local configs = require("lspconfig/configs")
 
@@ -198,9 +198,9 @@ return {
 					},
 				}
 			end
-			lspconfig.golangci_lint_ls.setup({
-				filetypes = { "go", "gomod" },
-			})
+			-- lspconfig.golangci_lint_ls.setup({
+			-- 	filetypes = { "go", "gomod" },
+			-- })
 		end,
 		keys = {
 			{ "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>" },

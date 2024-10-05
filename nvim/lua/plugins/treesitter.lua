@@ -6,6 +6,7 @@ local opts = {
 		"html",
 		"json",
 		"lua",
+		"markdown",
 		"php",
 		"proto",
 		"sql",

@@ -6,10 +6,6 @@ return {
 			command = {
 				"golangci-lint",
 				"run",
-				"--enable-all",
-				"--allow-parallel-runners",
-				"--disable",
-				"lll",
 				"--out-format",
 				"json",
 				"--issues-exit-code=1",
