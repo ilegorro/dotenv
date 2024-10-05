@@ -39,6 +39,7 @@ return {
 			require("mini.trailspace").setup()
 		end,
 	},
+	{ "echasnovski/mini.icons", version = "*" },
 	--[[
     {
         "echasnovski/mini.surround",

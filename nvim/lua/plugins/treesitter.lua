@@ -1,85 +1,33 @@
-local ensure_installed = {
-	"go",
-	"bash",
-	"dockerfile",
-	"glsl",
-	"hcl",
-	"javascript",
-	"json",
-	"lua",
-	"toml",
-	"typescript",
-	"vim",
-	"yaml",
-	"python",
-	"markdown",
-	"markdown_inline",
-	"proto",
-	"sql",
-	"graphql",
-	"php",
-}
-
 local opts = {
+	ensure_installed = {
+		"bash",
+		"dockerfile",
+		"go",
+		"html",
+		"json",
+		"lua",
+		"php",
+		"proto",
+		"sql",
+		"terraform",
+		"vim",
+		"vimdoc",
+		"xml",
+		"yaml",
+	},
 	query_linter = {
 		enable = true,
 		use_virtual_text = true,
 		lint_events = { "BufWrite", "CursorHold" },
 	},
-	ensure_installed = ensure_installed,
-	incremental_selection = {
-		enable = true,
-		keymaps = {
-			init_selection = "gnn", -- set to `false` to disable one of the mappings
-			node_incremental = "grn",
-			scope_incremental = "grc",
-			node_decremental = "grm",
-		},
-	},
-	textsubjects = {
-		enable = true,
-		prev_selection = ",", -- (Optional) keymap to select the previous selection
-		keymaps = {
-			["."] = "textsubjects-smart",
-			[";"] = "textsubjects-container-outer",
-			["i;"] = "textsubjects-container-inner",
-		},
-	},
-	textobjects = {
-		select = {
-			enable = true,
-			keymaps = {
-				-- Your custom capture.
-				["ip"] = "@parameter.inner",
-				["ap"] = "@parameter.outer",
-				["aa"] = "@assignment.outer",
-				["ai"] = "@assignment.inner",
-				["al"] = "@assignment.lhs",
-				["ar"] = "@assignment.rhs",
-				["as"] = "@statement.outer",
-				["is"] = "@statement.inner",
-			},
-		},
-		move = {
-			enable = true,
-			set_jumps = true,
-			goto_next = {
-				-- ["]]"] = "@conditional.outer",
-				["]f"] = "@function.outer",
-			},
-			goto_previous = {
-				-- ["[["] = "@conditional.outer",
-				["[f"] = "@function.outer",
-			},
-		},
-	},
-	-- Install languages synchronously (only applied to `ensure_installed`)
-	sync_install = true,
-
 	highlight = {
 		enable = true,
 		additional_vim_regex_highlighting = false,
 	},
+	indent = {
+		enable = true,
+	},
+	sync_install = true,
 	playground = {
 		enable = true,
 		disable = {},
@@ -98,9 +46,6 @@ local opts = {
 			show_help = "?",
 		},
 	},
-	indent = {
-		enable = true,
-	},
 }
 
 return {
@@ -109,21 +54,9 @@ return {
 		version = "0.9.2",
 		build = ":TSUpdate",
 		event = { "BufReadPre", "BufNewFile" },
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter-textobjects",
-			"JoosepAlviste/nvim-ts-context-commentstring",
-		},
 
 		config = function()
 			require("nvim-treesitter.configs").setup(opts)
-
-			-- MDX
-			vim.filetype.add({
-				extension = {
-					mdx = "mdx",
-				},
-			})
-			vim.treesitter.language.register("markdown", "mdx")
 		end,
 	},
 }

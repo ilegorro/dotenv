@@ -4,19 +4,42 @@ local servers = {
 	"bashls",
 	"gopls",
 	"yamlls",
-	"tsserver",
 	"phpactor",
 	"pyright",
+	"golangci_lint_ls",
 }
+
+local signs = {
+	Error = "",
+	Warn = "",
+	Info = "",
+	Hint = "💡",
+}
+
+local api = vim.api
+local lsp = vim.lsp
 
 -- LSP settings (for overriding per client)
 local handlers = {
-	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
+	["textDocument/hover"] = lsp.with(lsp.handlers.hover, { border = "rounded" }),
+	["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_help, { border = "rounded" }),
+	["textDocument/publishDiagnostics"] = lsp.with(lsp.diagnostic.on_publish_diagnostics, {
+		virtual_text = false,
+	}),
 }
 
 local on_attach = function()
 	return function(client, bufnr)
+		local function bufoptsWithDesc(desc)
+			return { silent = true, buffer = bufnr, desc = desc }
+		end
+
+		api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+		if client.name == "null-ls" then
+			return
+		end
+
 		if client.name == "gopls" and not client.server_capabilities.semanticTokensProvider then
 			local semantic = client.config.capabilities.textDocument.semanticTokens
 			client.server_capabilities.semanticTokensProvider = {
@@ -24,13 +47,34 @@ local on_attach = function()
 				legend = { tokenModifiers = semantic.tokenModifiers, tokenTypes = semantic.tokenTypes },
 				range = true,
 			}
+			client.server_capabilities.publishDiagnostics = false
 		end
 
 		-- client.resolved_capabilities.hover = false
 		require("nvim-navic").attach(client, bufnr)
 
-		vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+		local builtin = require("telescope.builtin")
+		vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, bufoptsWithDesc("Open symbol picker"))
+		vim.keymap.set(
+			"n",
+			"<leader>fS",
+			builtin.lsp_dynamic_workspace_symbols,
+			bufoptsWithDesc("Open symbol picker (workspace)")
+		)
+		vim.keymap.set("n", "fu", builtin.lsp_references, bufoptsWithDesc("Open references picker"))
+		api.nvim_command("autocmd CursorHold <buffer> lua vim.diagnostic.open_float({focusable = false})")
+
+		api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 	end
+end
+
+local function setup_lsp_diags()
+	lsp.handlers["textDocument/publishDiagnostics"] = lsp.with(lsp.diagnostic.on_publish_diagnostics, {
+		virtual_text = false,
+		signs = true,
+		update_in_insert = false,
+		underline = true,
+	})
 end
 
 local goimports = function()
@@ -62,6 +106,10 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
+			{
+				"nvimtools/none-ls.nvim",
+				config = function() end,
+			},
 			"williamboman/mason.nvim",
 			"SmiteshP/nvim-navic",
 			"williamboman/mason-lspconfig.nvim",
@@ -72,15 +120,23 @@ return {
 					library = { plugins = { "nvim-dap-ui" }, types = true },
 				},
 			},
+			{
+				"MysticalDevil/inlay-hints.nvim",
+				event = "LspAttach",
+				dependencies = { "neovim/nvim-lspconfig" },
+				config = function()
+					require("inlay-hints").setup()
+				end,
+			},
 			-- Interaction between cmp and lspconfig
 			"hrsh7th/cmp-nvim-lsp",
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			local cmp = require("cmp_nvim_lsp")
-			local capabilities = cmp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+			local capabilities = cmp.default_capabilities(lsp.protocol.make_client_capabilities())
 
-			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { focusable = false })
+			vim.lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, { focusable = false, float = true })
 
 			require("mason-lspconfig").setup_handlers({
 				function(server_name)
@@ -103,14 +159,50 @@ return {
 			})
 
 			goimports()
+			setup_lsp_diags()
+
+			for type, icon in pairs(signs) do
+				local hl = "DiagnosticSign" .. type
+				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+			end
+
+			local null_ls = require("null-ls")
+
+			null_ls.setup({
+				on_attach = on_attach(),
+				filetypes = "go",
+				sources = {
+					null_ls.builtins.completion.spell,
+				},
+			})
+			local lspconfig = require("lspconfig")
+			local configs = require("lspconfig/configs")
+
+			if not configs.golangcilsp then
+				configs.golangcilsp = {
+					default_config = {
+						cmd = { "golangci-lint-langserver" },
+						root_dir = lspconfig.util.root_pattern(".git", "go.mod"),
+						init_options = {
+							command = {
+								"golangci-lint",
+								"run",
+								"--enable-all",
+								"--disable",
+								"lll",
+								"--out-format",
+								"json",
+								"--issues-exit-code=1",
+							},
+						},
+					},
+				}
+			end
+			lspconfig.golangci_lint_ls.setup({
+				filetypes = { "go", "gomod" },
+			})
 		end,
 		keys = {
-			{
-				"E",
-				function()
-					vim.diagnostic.open_float()
-				end,
-			},
 			{ "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>" },
 			{ "]d", "<cmd>lua vim.diagnostic.goto_next()<CR> " },
 			{ "<Leader>fe", "<cmd>lua vim.diagnostic.setloclist()<CR>" },
@@ -126,46 +218,47 @@ return {
 				function()
 					vim.lsp.buf.code_action()
 				end,
+				mode = { "n", "v" },
 			},
 		},
-	},
-	{
-		"mfussenegger/nvim-lint",
-		config = function()
-			require("lint").linters_by_ft = {
-				markdown = { "vale" },
-				go = { "golangcilint" },
-			}
-			vim.api.nvim_create_autocmd({ "BufWinEnter", "BufWritePost" }, {
-				callback = function()
-					require("lint").try_lint()
-				end,
-			})
-		end,
 	},
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
+		opts = {},
+		cmd = "Trouble",
 		keys = {
 			{
 				"<leader>xw",
-				function()
-					require("trouble").toggle("workspace_diagnostics")
-				end,
-				desc = "workspace diagonstics",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Diagnostics (Trouble)",
 			},
 			{
 				"<leader>xd",
-				function()
-					require("trouble").toggle("document_diagnostics")
-				end,
-				desc = "document diagonstics",
+				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+				desc = "Buffer Diagnostics (Trouble)",
+			},
+			{
+				"<leader>xl",
+				"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+				desc = "LSP Definitions / references / ... (Trouble)",
+			},
+			{
+				"<leader>xq",
+				"<cmd>Trouble qflist toggle<cr>",
+				desc = "Quickfix List (Trouble)",
 			},
 		},
 	},
+	{
+		"smjonas/inc-rename.nvim",
+		event = "BufEnter",
+		config = function()
+			require("inc_rename").setup({})
+			vim.keymap.set("n", "<leader>rn", function()
+				return ":IncRename " .. vim.fn.expand("<cword>")
+			end, { expr = true })
+		end,
+	},
+	-- { "VidocqH/lsp-lens.nvim", config = true },
 }

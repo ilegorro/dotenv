@@ -3,10 +3,14 @@ local goflags = os.getenv("GOFLAGS")
 return {
 	gopls = {
 		semanticTokens = true,
-		["ui.inlayhint.hints"] = {
-			compositeLiteralFields = true,
-			constantValues = true,
-			parameterNames = true,
+		hints = {
+			rangeVariableTypes = false,
+			parameterNames = false,
+			constantValues = false,
+			assignVariableTypes = false,
+			compositeLiteralFields = false,
+			compositeLiteralTypes = false,
+			functionTypeParameters = false,
 		},
 		experimentalPostfixCompletions = true,
 		analyses = {
@@ -25,7 +29,6 @@ return {
 		staticcheck = true,
 		matcher = "fuzzy",
 		diagnosticsDelay = "500ms",
-		-- experimentalWatchedFileDelay = "100ms",
 		symbolMatcher = "fuzzy",
 		buildFlags = { goflags },
 	},

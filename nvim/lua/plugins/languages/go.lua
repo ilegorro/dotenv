@@ -15,6 +15,7 @@ return {
 		config = function()
 			require("go").setup({
 				verbose = true,
+				lsp_codelens = false,
 				icons = {
 					code_action_icon = "💡",
 					breakpoint = "🔺",
@@ -31,6 +32,15 @@ return {
 					vim.lsp.codelens.refresh()
 				end,
 			})
+			local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				pattern = "*.go",
+				callback = function()
+					require("go.format").gofmt()
+					require("go.format").goimport()
+				end,
+				group = format_sync_grp,
+			})
 		end,
 	},
 	{
@@ -40,7 +50,7 @@ return {
 			"jay-babu/mason-nvim-dap.nvim",
 			"mfussenegger/nvim-dap",
 			"rcarriga/nvim-dap-ui",
-			"theHamsta/nvim-dap-virtual-text",
+			"nvim-neotest/nvim-nio",
 		},
 		config = function()
 			require("mason-nvim-dap").setup({
@@ -74,46 +84,5 @@ return {
 			})
 			require("dapui").setup()
 		end,
-	},
-	{
-		"popoffvg/goimpl.nvim",
-		dependencies = {
-			"nvim-telescope/telescope.nvim",
-		},
-		config = function()
-			require("telescope").load_extension("goimpl")
-		end,
-		keys = {
-			{
-				"<leader>ci",
-				"<cmd>lua require'telescope'.extensions.goimpl.goimpl{}<CR>]",
-				"implement interface",
-				noremap = true,
-				silent = true,
-			},
-		},
-	},
-	{
-		"ThePrimeagen/refactoring.nvim",
-		config = function()
-			require("refactoring").setup({
-				prompt_func_return_type = {
-					go = true,
-				},
-				prompt_func_param_type = {
-					go = true,
-				},
-			})
-		end,
-		keys = {
-			{
-				"<leader>cr",
-				function()
-					require("telescope").extensions.refactoring.refactors()
-				end,
-				silent = true,
-				desc = "refactoring list",
-			},
-		},
 	},
 }

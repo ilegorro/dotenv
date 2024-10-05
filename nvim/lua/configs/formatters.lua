@@ -31,7 +31,7 @@ function M.golines()
 	return { exe = "golines", args = { "--max-len=80" }, stdin = true }
 end
 
-function M.gofumt()
+function M.gofumpt()
 	return {
 		exe = "gofumpt",
 		stdin = true,
