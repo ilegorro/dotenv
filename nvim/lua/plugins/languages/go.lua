@@ -7,42 +7,42 @@ Routes = {
 
 return {
 	"meain/vim-jsontogo",
-	{
-		"ray-x/go.nvim",
-		dependencies = {
-			"ray-x/guihua.lua",
-		},
-		config = function()
-			require("go").setup({
-				verbose = true,
-				lsp_codelens = false,
-				icons = {
-					code_action_icon = "💡",
-					breakpoint = "🔺",
-					currentpos = "🔸",
-				},
-				lsp_inlay_hints = {
-					enable = false,
-					other_hints_prefix = "=> ",
-					parameter_hints_prefix = "#",
-				},
-				lsp_on_client_start = function(client, bufnr)
-					require("config.keymap").go_on_attach(client, bufnr)
-					require("lsp_signature").on_attach()
-					vim.lsp.codelens.refresh()
-				end,
-			})
-			local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				pattern = "*.go",
-				callback = function()
-					require("go.format").gofmt()
-					require("go.format").goimport()
-				end,
-				group = format_sync_grp,
-			})
-		end,
-	},
+	-- {
+	-- 	"ray-x/go.nvim",
+	-- 	dependencies = {
+	-- 		"ray-x/guihua.lua",
+	-- 	},
+	-- 	config = function()
+	-- 		require("go").setup({
+	-- 			verbose = true,
+	-- 			lsp_codelens = false,
+	-- 			icons = {
+	-- 				code_action_icon = "💡",
+	-- 				breakpoint = "🔺",
+	-- 				currentpos = "🔸",
+	-- 			},
+	-- 			lsp_inlay_hints = {
+	-- 				enable = false,
+	-- 				other_hints_prefix = "=> ",
+	-- 				parameter_hints_prefix = "#",
+	-- 			},
+	-- 			lsp_on_client_start = function(client, bufnr)
+	-- 				require("config.keymap").go_on_attach(client, bufnr)
+	-- 				require("lsp_signature").on_attach()
+	-- 				vim.lsp.codelens.refresh()
+	-- 			end,
+	-- 		})
+	-- 		local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
+	-- 		vim.api.nvim_create_autocmd("BufWritePre", {
+	-- 			pattern = "*.go",
+	-- 			callback = function()
+	-- 				require("go.format").gofmt()
+	-- 				require("go.format").goimport()
+	-- 			end,
+	-- 			group = format_sync_grp,
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"leoluz/nvim-dap-go",
 		dependencies = {
